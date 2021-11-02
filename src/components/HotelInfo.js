@@ -1,8 +1,27 @@
-import React from "react";
-import accessibilities from './data/accessibilities.json';
-import services from './data/services.json';
+import React, { useEffect , useState } from "react";
+// import accessibilities from './data/accessibilities.json';
+// import services from './data/services.json';
 
 const HotelInfo = () => {
+    const [accessibilities, setAccessibilities] = useState([]);
+    const [services, setServices] = useState([]);
+
+    const loadData = async () => {
+        const data = await fetch("https://ihinej66mg.execute-api.us-east-1.amazonaws.com/Production/accessibilities");
+        const jsonData = await data.json();
+        setAccessibilities(jsonData);
+    };
+
+    const loadServiceData = async () => {
+        const data = await fetch("https://ihinej66mg.execute-api.us-east-1.amazonaws.com/Production/services");
+        const jsonData = await data.json();
+        setServices(jsonData);
+    };
+
+    useEffect(() => {
+        loadData();
+    }, []);
+
     return (
 
         <div className="scene" id="hotelinfo">
